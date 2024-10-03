@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  product-service-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 180.18.0.0/16
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo-product-service
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      product-service-network:
+        ipv4_address: 180.18.0.2
+
+  java-microservice:
+    build:
+      context: ..
+      dockerfile: ../Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      product-service-network:
+        ipv4_address: 180.18.0.3
+
+volumes:
+  mongo-data:
