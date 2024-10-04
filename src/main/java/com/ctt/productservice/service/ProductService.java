@@ -21,7 +21,7 @@ public class ProductService {
      * Gets a new instance of the repository
      * */
     public ProductService() {
-        this.productRepository = new ProductRepository("mongo-product-service", "mongodb://180.18.0.2:27017");
+        this.productRepository = new ProductRepository("mongo-product-service","mongodb://180.18.0.2:27017");
     }
 
     /**
@@ -36,16 +36,5 @@ public class ProductService {
                 categories,
                 (float) ((double) productMap.get("price")));
         productRepository.save(product);
-    }
-
-    private List<String> parseArray(String categories) {
-        List<String> categoriesArray = new ArrayList<>();
-        String[] splittedCategories = categories.split("\"");
-        for(int i = 0 ; i<splittedCategories.length; i++) {
-            if(i%2 == 1) {
-                categoriesArray.add(splittedCategories[i]);
-            }
-        }
-        return categoriesArray;
     }
 }

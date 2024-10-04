@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class RegisterHandler implements HttpHandler {
 
+    public static final String PRODUCT_REGISTERED = "Product registered";;
     private final ProductService productService;
 
     public RegisterHandler(ProductService service) {
@@ -23,10 +25,9 @@ public class RegisterHandler implements HttpHandler {
     public void handle(HttpExchange exchange) {
         try {
             productService.registerProduct(convertInputStreamToString(exchange.getRequestBody()));
-            String response = "Product registered";
-            exchange.sendResponseHeaders(200, response.length()); // Send 200 OK status
+            exchange.sendResponseHeaders(200, PRODUCT_REGISTERED.length()); // Send 200 OK status
             OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
+            os.write(PRODUCT_REGISTERED.getBytes());
             os.close();
         }
         catch (Exception e) {
