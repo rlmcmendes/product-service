@@ -21,7 +21,7 @@ public class ProductService {
      * Gets a new instance of the repository
      * */
     public ProductService() {
-        this.productRepository = new ProductRepository("mongo-product-service");
+        this.productRepository = new ProductRepository("mongo-product-service", "mongodb://180.18.0.2:27017");
     }
 
     /**
@@ -29,11 +29,12 @@ public class ProductService {
      *
      * @param productMap - product map containing not generated attributes
      * */
-    public void registerProduct(Map<String,String> productMap) {
-        Product product = new Product(Integer.parseInt(productMap.get("stock")),
-                productMap.get("description"),
-                parseArray(productMap.get("categories")),
-                Float.parseFloat(productMap.get("price")));
+    public void registerProduct(Map<String,Object> productMap) {
+        List<String> categories = (List<String>) productMap.get("categories");
+        Product product = new Product((int) productMap.get("stock"),
+                (String) productMap.get("description"),
+                categories,
+                (float) ((double) productMap.get("price")));
         productRepository.save(product);
     }
 

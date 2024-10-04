@@ -15,8 +15,8 @@ import java.util.UUID;
 public class ProductRepository {
     private final MongoCollection<Document> collection;
 
-    public ProductRepository(String nameDB) {
-        MongoClient mongoClient = MongoClients.create("mongodb://180.18.0.2:27017");
+    public ProductRepository(String nameDB, String address) {
+        MongoClient mongoClient = MongoClients.create(address);
         MongoDatabase database = mongoClient.getDatabase("mongo-product-service");
         collection = database.getCollection("products");
     }
