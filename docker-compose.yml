@@ -19,8 +19,9 @@ services:
       product-service-network:
         ipv4_address: 180.18.0.2
 
-  java-microservice:
+  product-service:
     build:
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
