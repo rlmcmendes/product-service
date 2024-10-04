@@ -2,6 +2,7 @@ package com.ctt.productservice.handler;
 
 import com.ctt.productservice.service.ProductService;
 import com.sun.net.httpserver.HttpExchange;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -10,9 +11,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import static com.ctt.productservice.handler.RegisterHandler.PRODUCT_REGISTERED;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
+/**
+ * Class to test register handler
+ * */
 public class RegisterHandlerTests {
     private ProductService productService;
     private RegisterHandler registerHandler;
@@ -22,9 +27,14 @@ public class RegisterHandlerTests {
         productService = Mockito.mock(ProductService.class);
         registerHandler = new RegisterHandler(productService);
     }
+
+    /**
+     * Tests if handle is working, verifying if the service is being properly called and
+     * the response of the exchange is 200
+     * */
     @Test
-    public void testHandle() throws IOException {
-        // Simulate the JSON input
+    public void testHandle() {
+        //JSON input
         String jsonInput = "{\n" +
                 "    \"stock\":100,\n" +
                 "    \"description\":\"Sample Product\",\n" +
@@ -49,7 +59,7 @@ public class RegisterHandlerTests {
 
         // Verify the response
         String response = outputStream.toString();
-        assert response.equals("Product registered");
+        Assertions.assertEquals(PRODUCT_REGISTERED, response);
     }
 
 }
