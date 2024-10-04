@@ -18,11 +18,10 @@ public class ProductRepository {
     private final MongoCollection<Document> collection;
 
     public ProductRepository(String dbName, String address) {
-        MongoDatabase database;
-        try (MongoClient mongoClient = create(address)) {
-            database = mongoClient.getDatabase(dbName);
-            collection = database.getCollection("products");
-        }
+        MongoClient mongoClient = create(address);
+        MongoDatabase database = mongoClient.getDatabase(dbName);
+        collection = database.getCollection("products");
+
     }
 
     public boolean save(Product product) {
