@@ -9,42 +9,34 @@ import org.bson.Document;
 
 import java.util.UUID;
 
+import static com.mongodb.client.MongoClients.create;
+
 /**
  * Java class that makes the operations in the mongodb repository
- * */
+ */
 public class ProductRepository {
     private final MongoCollection<Document> collection;
 
-    public ProductRepository() {
-        MongoClient mongoClient = MongoClients.create("mongodb://180.18.0.2:27017");
-        MongoDatabase database = mongoClient.getDatabase("mongo-product-service");
+    public ProductRepository(String dbName, String address) {
+        MongoClient mongoClient = create(address);
+        MongoDatabase database = mongoClient.getDatabase(dbName);
         collection = database.getCollection("products");
+
     }
 
     public boolean save(Product product) {
-        try {
-            product.setId(UUID.randomUUID().toString());
-            //Check if not in database already
-            Document doc = new Document("id", product.getId())
-                    .append("stock", product.getStock())
-                    .append("description", product.getDescription())
-                    .append("categories", product.getCategories())
-                    .append("price", product.getPrice());
-            collection.insertOne(doc);
-            return true;
-        }
-        catch(Exception e) {
-            return false;
-        }
+        product.setId(UUID.randomUUID().toString());
+        //Check if not in database already
+        Document doc = new Document("id", product.getId())
+                .append("stock", product.getStock())
+                .append("description", product.getDescription())
+                .append("categories", product.getCategories())
+                .append("price", product.getPrice());
+        collection.insertOne(doc);
+        return true;
     }
 
-    public boolean delete(String id) {
-        try {
-            collection.findOneAndDelete(new Document("id", id));
-            return true;
-        }
-        catch(Exception e) {
-            return false;
-        }
+    public void delete(String id) {
+        collection.findOneAndDelete(new Document("id", id));
     }
 }
