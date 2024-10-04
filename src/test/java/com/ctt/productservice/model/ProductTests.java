@@ -22,7 +22,7 @@ public class ProductTests {
     public void testProductNullValues() {
         Product product = new Product(-1, null, null, -1);
         product.setId(null);
-        Assertions.assertNull( product.getId());
+        Assertions.assertNull(product.getId());
         Assertions.assertNull(product.getDescription());
         Assertions.assertEquals(-1, product.getPrice(), 0.001);
         Assertions.assertEquals(-1, product.getStock());

@@ -10,10 +10,9 @@ public class ProductRepositoryTests {
 
     @Test
     public void testRepository() {
-        ProductRepository repo = new ProductRepository();
-        Product product = new Product(39, "a descirption that fits", Arrays.asList("2","45"), 18.5f);
-        product.setId("hdycycbecyc6e783hdbcy");
+        ProductRepository repo = new ProductRepository("testDatabase");
+        Product product = new Product(39, "a description that fits", Arrays.asList("2","45"), 18.5f);
         Assertions.assertTrue(repo.save(product));
-        repo.delete("hdycycbecyc6e783hdbcy");
+        repo.delete(product.getId());
     }
 }

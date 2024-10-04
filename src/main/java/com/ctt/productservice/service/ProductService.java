@@ -21,7 +21,7 @@ public class ProductService {
      * Gets a new instance of the repository
      * */
     public ProductService() {
-        this.productRepository = new ProductRepository();
+        this.productRepository = new ProductRepository("mongo-product-service");
     }
 
     /**
