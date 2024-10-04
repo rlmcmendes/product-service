@@ -19,10 +19,11 @@ services:
       product-service-network:
         ipv4_address: 180.18.0.2
 
-  product-service:
+  microservice:
     build:
       context: .
       dockerfile: Dockerfile
+    image: "rlmendes/product-service:latest"
     ports:
       - "8080:8080"
     depends_on:
