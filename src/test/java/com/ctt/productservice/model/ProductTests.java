@@ -5,8 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+/**
+ * Class to test if the product model is working properly
+ * */
 public class ProductTests {
 
+    /**
+     * Tests if the product model works in normal circumstances
+     * */
     @Test
     public void testProductInNormalCircumstances() {
         Product product = new Product(94, "description", Arrays.asList("cat1","cat2"), 40.7f);
@@ -18,6 +24,9 @@ public class ProductTests {
         Assertions.assertEquals( Arrays.asList("cat1","cat2"), product.getCategories());
     }
 
+    /**
+     * Tests what happens when the product model faces null or negative values
+     * */
     @Test
     public void testProductNullValues() {
         Product product = new Product(-1, null, null, -1);
