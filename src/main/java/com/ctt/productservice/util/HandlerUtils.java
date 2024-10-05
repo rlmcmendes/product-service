@@ -19,7 +19,7 @@ public final class HandlerUtils {
      * @param inputStream to read the information request from
      * @return map of the id of the field to its value
      */
-    public static Map<String,Object> convertInputStreamToString(InputStream inputStream) throws IOException {
+    public static Document convertInputStreamToString(InputStream inputStream) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
