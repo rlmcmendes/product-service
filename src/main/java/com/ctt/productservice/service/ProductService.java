@@ -33,7 +33,7 @@ public class ProductService {
     @SuppressWarnings("unchecked")
     public void registerProduct(Map<String, Object> productMap) {
         List<String> categories = (List<String>) productMap.get("categories");
-        Product product = new Product((int) productMap.get("stock"),
+        Product product = new Product(0,
                 (String) productMap.get("description"),
                 categories,
                 (float) ((double) productMap.get("price")));

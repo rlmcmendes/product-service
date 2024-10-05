@@ -24,7 +24,7 @@ public class RegisterOperationTests {
     @Test
     public void testRegisterOperation() {
         String url = "http://localhost:8080/register";
-        String jsonInputString = "{\"stock\":300,\n" +
+        String jsonInputString = "{ " +
                 "\"description\":\"Just to make sure version 4\",\n" +
                 "\"categories\":[\"cat1 f\",\"cat2\"],\n" +
                 "\"price\":20.25}";

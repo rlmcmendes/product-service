@@ -36,7 +36,6 @@ public class RegisterHandlerTests {
     public void testHandle() {
         //JSON input
         String jsonInput = "{\n" +
-                "    \"stock\":100,\n" +
                 "    \"description\":\"Sample Product\",\n" +
                 "    \"categories\":[\"cat1\",\"cat2\"],\n" +
                 "    \"price\":19.99\n" +
