@@ -27,7 +27,7 @@ public class RegisterOperationTests {
         String jsonInputString = "{ " +
                 "\"description\":\"Just to make sure version 4\",\n" +
                 "\"categories\":[\"cat1 f\",\"cat2\"],\n" +
-                "\"price\":20.25}";
+                "\"price\":\"20.25\"}";
 
         HttpResponse<String> response = RequestUtils.openRequest(url, jsonInputString, "POST");
 

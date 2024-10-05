@@ -36,7 +36,7 @@ public class ProductService {
         Product product = new Product(0,
                 (String) productMap.get("description"),
                 categories,
-                (float) ((double) productMap.get("price")));
+                Float.parseFloat((String) productMap.get("price")));
         product.setId(UUID.randomUUID().toString());
         productRepository.save(product);
     }
