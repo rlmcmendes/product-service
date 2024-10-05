@@ -17,7 +17,7 @@ public class InformationHandler implements HttpHandler {
     private final ProductService productService;
 
     /**
-     * Constructor for INformationHandler
+     * Constructor for InformationHandler
      *
      * @param service - ProductService to used
      */

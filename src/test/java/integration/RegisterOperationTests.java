@@ -26,7 +26,16 @@ public class RegisterOperationTests {
         String url = "http://localhost:8080/register";
         String jsonInputString = "{ " +
                 "\"description\":\"Just to make sure version 4\",\n" +
-                "\"categories\":[\"cat1 f\",\"cat2\"],\n" +
+                "\"categories\":[\n" +
+                "        {\n" +
+                "            \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n" +
+                "            \"name\": \"Category A\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"id\": \"123e4567-e89b-12d3-a456-426614174001\",\n" +
+                "            \"name\": \"Category B\"\n" +
+                "        }\n" +
+                "    ],\n" +
                 "\"price\":\"20.25\"}";
 
         HttpResponse<String> response = RequestUtils.openRequest(url, jsonInputString, "POST");
