@@ -2,12 +2,9 @@ package com.ctt.productservice.repository;
 
 import com.ctt.productservice.model.Product;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
-import java.util.UUID;
 
 import static com.mongodb.client.MongoClients.create;
 
@@ -25,7 +22,6 @@ public class ProductRepository {
     }
 
     public boolean save(Product product) {
-        product.setId(UUID.randomUUID().toString());
         //Check if not in database already
         Document doc = new Document("id", product.getId())
                 .append("stock", product.getStock())
@@ -34,6 +30,16 @@ public class ProductRepository {
                 .append("price", product.getPrice());
         collection.insertOne(doc);
         return true;
+    }
+
+    /**
+     * Gets document from databse through uuid
+     *
+     * @param uuid unique id to get
+     * @return complete document form database
+     */
+    public Document findById(String uuid) {
+        return collection.find(new Document("id", uuid)).first();
     }
 
     public void delete(String id) {
