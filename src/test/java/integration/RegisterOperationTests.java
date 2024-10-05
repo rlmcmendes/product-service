@@ -2,6 +2,7 @@ package integration;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import util.RequestUtils;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -27,25 +28,9 @@ public class RegisterOperationTests {
                 "\"description\":\"Just to make sure version 4\",\n" +
                 "\"categories\":[\"cat1 f\",\"cat2\"],\n" +
                 "\"price\":20.25}";
-        HttpResponse<String> response = null;
 
-        try {
-            // Create an HttpClient instance
-            HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = RequestUtils.openRequest(url, jsonInputString, "POST");
 
-            // Create the HTTP request
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(jsonInputString))
-                    .build();
-
-            // Sends the request and gets the response
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         //Asserts that response in not null
         Assertions.assertNotNull(response);
 
