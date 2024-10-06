@@ -47,10 +47,10 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Fork the repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Fork repository
         run: |
-          ORIGINAL_REPO="rlmcmendes/product-service"  
-          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/$ORIGINAL_REPO/forks"
+          curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+          -X POST \
+          "https://api.github.com/repos/rlmcmendes/product-service/forks"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
