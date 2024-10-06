@@ -22,7 +22,7 @@ public class ProductService {
      * Gets a new instance of the repository
      */
     public ProductService() {
-        this.productRepository = new ProductRepository("mongo-product-service", "mongodb://180.18.0.2:27017");
+        this.productRepository = new ProductRepository("mongo-product-service", System.getenv("MONGO_URI"));
     }
 
     /**

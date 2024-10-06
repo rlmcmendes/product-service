@@ -31,6 +31,8 @@ services:
     networks:
       product-service-network:
         ipv4_address: 180.18.0.3
+    environment:
+      - MONGO_URI=mongodb://180.18.0.2:27017
 
 volumes:
   mongo-data:
