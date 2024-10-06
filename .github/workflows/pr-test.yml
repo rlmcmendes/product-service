@@ -51,7 +51,7 @@ jobs:
         id: changes
         run: |
           git diff --exit-code -- k8s-manifests/*.yaml
-          echo "changes=false" >> $GITHUB_ENV
+          echo "changes=true" >> $GITHUB_ENV
           if [[ $? -ne 0 ]]; then
             echo "changes=true" >> $GITHUB_ENV
           fi
