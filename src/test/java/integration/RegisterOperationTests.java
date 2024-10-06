@@ -4,23 +4,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.RequestUtils;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import static com.ctt.productservice.handler.RegisterHandler.PRODUCT_REGISTERED;
 
 /**
  * Test class for register operation
- * */
+ */
 public class RegisterOperationTests {
 
     private static final int HTTP_OK = 200;
 
     /**
      * Tests if a normal register operation works
-     * */
+     */
     @Test
     public void testRegisterOperation() {
         String url = "http://localhost:8080/register";

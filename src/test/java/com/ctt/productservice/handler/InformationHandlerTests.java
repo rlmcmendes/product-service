@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-import static com.ctt.productservice.handler.RegisterHandler.PRODUCT_REGISTERED;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,7 +28,7 @@ public class InformationHandlerTests {
     /**
      * Tests if information handler is working, verifying if the service is being properly called and
      * the response of the exchange is 200
-     * */
+     */
     @Test
     public void testHandle() {
 

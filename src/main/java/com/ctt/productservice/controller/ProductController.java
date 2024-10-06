@@ -8,8 +8,14 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+/**
+ * Java class that creates the server and contexts
+ */
 public class ProductController {
 
+    /**
+     * Creates the server and contexts
+     */
     public static void main(String[] args) throws IOException {
         // Create an HTTP server instance on port 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);

@@ -7,10 +7,10 @@ import java.util.List;
  */
 public class Product {
     private String id; // UUID
-    private int stock;
-    private String description;
-    private List<String> categories;
-    private float price;
+    private final int stock;
+    private final String description;
+    private final List<String> categories;
+    private final float price;
 
     /**
      * Constructor of the Product object
@@ -64,7 +64,7 @@ public class Product {
 
     /**
      * Sets product id
-     * */
+     */
     public void setId(String id) {
         this.id = id;
     }
