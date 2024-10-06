@@ -6,11 +6,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Map;
 
 /**
  * Java class containing Handler Util methods
- * */
+ */
 public final class HandlerUtils {
 
     /**

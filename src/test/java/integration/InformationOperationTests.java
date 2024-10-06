@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * Class to test InformationOperation
- * */
+ */
 public class InformationOperationTests {
     private static final int HTTP_OK = 200;
 

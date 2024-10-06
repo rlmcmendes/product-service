@@ -18,7 +18,7 @@ public class ProductRepositoryTests {
 
     /**
      * Sets up the repository and product to add
-     * */
+     */
     @BeforeEach
     public void setUp() {
         repo = new ProductRepository("testDatabase", "mongodb://localhost:27017");
@@ -28,7 +28,7 @@ public class ProductRepositoryTests {
 
     /**
      * Deletes the entry in the end
-     * */
+     */
     @AfterEach
     public void deleteDatabseEntry() {
         repo.delete(product.getId());
@@ -52,6 +52,6 @@ public class ProductRepositoryTests {
         repo.save(product);
         Assertions.assertTrue(repo.findById(product.getId()).toJson().contains(
                 "\"id\": \"sohftcye6789\", \"stock\": 39, \"description\": \"a description that fits\"" +
-                ", \"categories\": [\"2\", \"45\"], \"price\": 18.5"));
+                        ", \"categories\": [\"2\", \"45\"], \"price\": 18.5"));
     }
 }

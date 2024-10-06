@@ -14,6 +14,13 @@ import static com.mongodb.client.MongoClients.create;
 public class ProductRepository {
     private final MongoCollection<Document> collection;
 
+    /**
+     * Constructor of ProductRepository
+     * Gets the mongoClient connection and its collection
+     *
+     * @param address to connect to
+     * @param dbName  database name
+     */
     public ProductRepository(String dbName, String address) {
         MongoClient mongoClient = create(address);
         MongoDatabase database = mongoClient.getDatabase(dbName);
@@ -21,8 +28,13 @@ public class ProductRepository {
 
     }
 
+    /**
+     * Saves the product in the database
+     *
+     * @param product - product to be saved in database
+     * @return true if added successfully, false otherwise
+     */
     public boolean save(Product product) {
-        //Check if not in database already
         Document doc = new Document("id", product.getId())
                 .append("stock", product.getStock())
                 .append("description", product.getDescription())
@@ -42,6 +54,10 @@ public class ProductRepository {
         return collection.find(new Document("id", uuid)).first();
     }
 
+    /**
+     * Method to delete a database entry, essential for testing purposes
+     * It is not accessible through any endpoint
+     */
     public void delete(String id) {
         collection.findOneAndDelete(new Document("id", id));
     }

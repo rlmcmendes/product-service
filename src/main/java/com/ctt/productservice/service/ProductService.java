@@ -6,7 +6,6 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 
@@ -52,10 +51,10 @@ public class ProductService {
     /**
      * Formats the list of document containing id and name from JSON categories to
      * a list of strings containing only the ids
-     * */
+     */
     private List<String> formatListOfDocumentsToListOfIds(List<Document> categories) {
         List<String> categoriesList = new ArrayList<>();
-        for(Document document:categories){
+        for (Document document : categories) {
             categoriesList.add(document.getString("id"));
         }
         return categoriesList;

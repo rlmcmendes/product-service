@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import static com.ctt.productservice.handler.RegisterHandler.PRODUCT_REGISTERED;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Class to test register handler
- * */
+ */
 public class RegisterHandlerTests {
     private ProductService productService;
     private RegisterHandler registerHandler;
@@ -31,7 +30,7 @@ public class RegisterHandlerTests {
     /**
      * Tests if handle is working, verifying if the service is being properly called and
      * the response of the exchange is 200
-     * */
+     */
     @Test
     public void testHandle() {
         //JSON input
