@@ -46,3 +46,26 @@ jobs:
       - name: Shut down Docker Compose
         if: always()
         run: docker-compose down
+
+      - name: Check for changes in Kubernetes manifests
+        id: changes
+        run: |
+          git diff --exit-code -- k8s-manifests/*.yaml
+          echo "changes=false" >> $GITHUB_ENV
+          if [[ $? -ne 0 ]]; then
+            echo "changes=true" >> $GITHUB_ENV
+          fi
+
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
+
+      - name: Create Pull Request for Kubernetes manifest changes
+        if: env.changes == 'true'
+        run: |
+          gh pr create --title "Kubernetes Manifests" \
+                        --body "Rodrigo Mendes Kubernetes manifest file." \
+                        --base main \
+                        --head ${{ github.head_ref }} \
+                        --repo ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
