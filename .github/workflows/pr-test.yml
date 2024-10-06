@@ -49,10 +49,8 @@ jobs:
 
       - name: Fork the repository
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Make sure you've added this secret
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          ORIGINAL_REPO="rlmcmendes/product-service"  # Replace with the original repository
-          
-          # Fork the repository using GitHub API
+          ORIGINAL_REPO="rlmcmendes/product-service"  
           curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
           "https://api.github.com/repos/$ORIGINAL_REPO/forks"
