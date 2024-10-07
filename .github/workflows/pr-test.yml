@@ -52,6 +52,7 @@ jobs:
 
       - name: Copy k8s-manifest file
         run: |
+          ls
           cp ./k8s-manifest ./k8s-manifest
 
       - name: Commit changes
