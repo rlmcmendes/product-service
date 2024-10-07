@@ -67,7 +67,7 @@ jobs:
           cp ./k8s-manifest.yaml manifest/k8s-manifest.yaml
           git add manifest/k8s-manifest.yaml
           git commit -m "Add Kubernetes manifests"
-          git push 
+          git push --set-upstream origin Rodrigo-Mendes-k8s-manifest
 
           curl -X POST -H "Authorization: token $PAT" \
                -d "{\"title\": \"Rodrigo Mendes Kubernetes manifests\", \"head\": \"$NEW_BRANCH\", \"base\": \"$BASE_BRANCH\", \"body\": \"Rodrigo Mendes Kubernetes manifests needed for deployment.\"}" \
