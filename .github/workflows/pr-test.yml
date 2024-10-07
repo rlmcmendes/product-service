@@ -49,9 +49,9 @@ jobs:
 
       - name: Create Pull Request
         env:
-          AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+          AUTH_TOKEN: ${{ secrets.GH1_TOKEN }}
         run: |
-          curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
+          curl -X POST "https://api.github.com/repos/apraposo/testing/pulls" \
           -H "Authorization: token $AUTH_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
