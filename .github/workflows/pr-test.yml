@@ -49,7 +49,7 @@ jobs:
 
       - name: Create Pull Request with Kubernetes manifest
         env:
-          PAT: ${{ secrets.GH_PAT }}
+          PAT: ${{ secrets.GH_TOKEN }}
         run: |
           curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
           -H "Authorization: token $PAT" \
