@@ -47,41 +47,26 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Create a new branch
-        run: git checkout -b k8s-manifest-Rodrigo-Mendes
-
-      - name: Set up Git
-        run: |
-          git config --global user.name "rlmcmendes"
-          git config --global user.email "kikomendes4@gmail.com"
-
-      - name: Copy k8s-manifest file
-        run: |
-          mkdir manifest
-          cp k8s-manifest.yaml manifest/k8s-manifest.yaml
-
-      - name: Commit changes
-        run: |
-          git add manifest/k8s-manifest.yaml
-          git commit -m "Add k8s-manifest file"
-
-      - name: Push changes
+      - name: Create Pull Request with Kubernetes manifest
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAT: ${{ secrets.GH_PAT }}
         run: |
-          git remote add upstream https://github.com/hugo-c-noronha_ctt/DevExercise.git
-          git push -u upstream k8s-manifest-Rodrigo-Mendes
+          BASE_BRANCH="main"
+          NEW_BRANCH="Rodrigo-Mendes-k8s-manifest"
 
-      - name: Create Pull Request using cURL
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls \
-          -d '{
-            "title": "Rodrigo Mendes k8s-manifest",
-            "head": "k8s-manifest-Rodrigo-Mendes",
-            "base": "main",
-            "body": "Rodrigo Mendes PR that adds the k8s-manifest file."
-          }'
+          git checkout $BASE_BRANCH
+
+          git checkout -b $NEW_BRANCH
+
+          cp ./k8s-manifest.yaml ./
+          git add k8s-manifest.yaml
+          git commit -m "Add Kubernetes manifests"
+
+          git remote add target-repo https://$PAT@github.com/hugo-c-noronha_ctt/DevExercise.git
+          git push target-repo $NEW_BRANCH
+
+          curl -X POST -H "Authorization: token $PAT" \
+               -d "{\"title\": \"Add Kubernetes manifests\", \"head\": \"$NEW_BRANCH\", \"base\": \"$BASE_BRANCH\", \"body\": \"Rodrigo Mendes Kubernetes manifests needed for deployment.\"}" \
+               https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls
+      
