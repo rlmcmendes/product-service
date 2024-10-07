@@ -57,7 +57,7 @@ jobs:
           -d '{
           "title": ">Rodrigo Mendes k8s-manifest.yaml",
           "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
-          "head": "'"${{ github.head_ref }}"'",
+          "head": "rlmcmendes:Manifest-creation-and-deploy",
           "base": "main"
           }'
       
