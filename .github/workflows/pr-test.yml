@@ -47,18 +47,7 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Check for changes in Kubernetes manifest
-        id: check_changes
-        run: |
-          git diff --exit-code -- manifest/k8s-manifest.yaml || echo "changed" > changed.txt
-          if [ -f changed.txt ]; then
-          echo "changed=true" >> $GITHUB_ENV
-          else
-          echo "changed=false" >> $GITHUB_ENV
-          fi
-
       - name: Create Pull Request with Kubernetes manifest
-        if: env.changed == 'true'
         env:
           PAT: ${{ secrets.GH_PAT }}
         run: |
