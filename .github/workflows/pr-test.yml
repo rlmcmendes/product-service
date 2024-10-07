@@ -50,6 +50,11 @@ jobs:
       - name: Create a new branch
         run: git checkout -b k8s-manifest-update
 
+      - name: Set up Git
+        run: |
+          git config --global user.name "rlmcmendes"
+          git config --global user.email "kikomendes4@gmail.com"
+
       - name: Copy k8s-manifest file
         run: |
           mkdir manifest
