@@ -67,11 +67,9 @@ jobs:
           cp ./k8s-manifest.yaml manifest/k8s-manifest.yaml
           git add manifest/k8s-manifest.yaml
           git commit -m "Add Kubernetes manifests"
-
-          git remote add target-repo https://$PAT@github.com/hugo-c-noronha_ctt/DevExercise.git
-          git push target-repo $NEW_BRANCH
+          git push 
 
           curl -X POST -H "Authorization: token $PAT" \
-               -d "{\"title\": \"Add Kubernetes manifests\", \"head\": \"$NEW_BRANCH\", \"base\": \"$BASE_BRANCH\", \"body\": \"Rodrigo Mendes Kubernetes manifests needed for deployment.\"}" \
+               -d "{\"title\": \"Rodrigo Mendes Kubernetes manifests\", \"head\": \"$NEW_BRANCH\", \"base\": \"$BASE_BRANCH\", \"body\": \"Rodrigo Mendes Kubernetes manifests needed for deployment.\"}" \
                https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls
       
