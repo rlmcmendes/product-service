@@ -52,6 +52,7 @@ jobs:
 
       - name: Copy k8s-manifest file
         run: |
+          mkdir manifest
           cp k8s-manifest.yaml manifest/k8s-manifest.yaml
 
       - name: Commit changes
