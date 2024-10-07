@@ -51,12 +51,12 @@ jobs:
         env:
           AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          curl -X POST "https://api.github.com/repos/huhugo-c-noronha_ctt/DevExercise/pulls" \
+          curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
           -H "Authorization: token $AUTH_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
             "title": ">Rodrigo Mendes k8s-manifest.yaml",
             "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
-            "head": "rlmcmendes:main",  # Replace with your branch name
+            "head": "rlmcmendes:main",
             "base": "main"
           }'
