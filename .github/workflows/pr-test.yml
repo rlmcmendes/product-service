@@ -47,16 +47,36 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Create Pull Request
-        env:
-          AUTH_TOKEN: ${{ secrets.GH1_TOKEN }}
+      - name: Create a new branch
+        run: git checkout -b k8s-manifest-update
+
+      - name: Copy k8s-manifest file
         run: |
-          curl -X POST "https://api.github.com/repos/apraposo/testing/pulls" \
-          -H "Authorization: token $AUTH_TOKEN" \
+          # Adjust the path to the actual location of your k8s-manifest file
+          cp k8s-manifest ./k8s-manifest
+
+      - name: Commit changes
+        run: |
+          git add ./k8s-manifest
+          git commit -m "Add k8s-manifest file"
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH1_TOKEN }}
+        run: |
+          git remote add upstream https://github.com/apraposo/testing.git
+          git push -u upstream k8s-manifest-update
+
+      - name: Create Pull Request using cURL
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH1_TOKEN }}
+        run: |
+          curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/apraposo/testing/pulls \
           -d '{
-          "title": ">Rodrigo Mendes k8s-manifest.yaml",
-          "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
-          "head": "rlmcmendes:main",
-          "base": "main"
+            "title": "Add k8s-manifest",
+            "head": "k8s-manifest-update",
+            "base": "main",
+            "body": "This PR adds the k8s-manifest file."
           }'
