@@ -47,16 +47,28 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Create Pull Request
+      - name: Check for changes in Kubernetes manifest
+        id: check_changes
+        run: |
+          git diff --exit-code -- manifest/k8s-manifest.yaml || echo "changed" > changed.txt
+          if [ -f changed.txt ]; then
+          echo "changed=true" >> $GITHUB_ENV
+          else
+          echo "changed=false" >> $GITHUB_ENV
+          fi
+
+      - name: Create Pull Request with Kubernetes manifest
+        if: env.changed == 'true'
         env:
-          AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+          PAT: ${{ secrets.GH_PAT }}
         run: |
           curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
-          -H "Authorization: token $AUTH_TOKEN" \
+          -H "Authorization: token $PAT" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
-            "title": ">Rodrigo Mendes k8s-manifest.yaml",
-            "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
-            "head": "rlmcmendes:main",
-            "base": "main"
+          "title": ">Rodrigo Mendes k8s-manifest.yaml",
+          "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
+          "head": "'"${{ github.head_ref }}"'",
+          "base": "main"
           }'
+      
