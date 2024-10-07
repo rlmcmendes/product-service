@@ -47,10 +47,16 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Fork repository
-        run: |
-          curl -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
-          -X POST \
-          "https://api.github.com/repos/rlmcmendes/product-service/forks"
+      - name: Create Pull Request
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          curl -X POST "https://api.github.com/repos/huhugo-c-noronha_ctt/DevExercise/pulls" \
+          -H "Authorization: token $AUTH_TOKEN" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{
+            "title": ">Rodrigo Mendes k8s-manifest.yaml",
+            "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
+            "head": "rlmcmendes:main",  # Replace with your branch name
+            "base": "main"
+          }'
