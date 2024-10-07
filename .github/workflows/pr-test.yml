@@ -47,29 +47,28 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Set Git user details
+      - name: Check for changes in Kubernetes manifest
+        id: check_changes
         run: |
-          git config --global user.name "rlmcmendes"
-          git config --global user.email "kikomendes4@gmail.com"
-
+          git diff --exit-code -- manifest/k8s-manifest.yaml || echo "changed" > changed.txt
+          if [ -f changed.txt ]; then
+          echo "changed=true" >> $GITHUB_ENV
+          else
+          echo "changed=false" >> $GITHUB_ENV
+          fi
 
       - name: Create Pull Request with Kubernetes manifest
+        if: env.changed == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PAT: ${{ secrets.GH_PAT }}
         run: |
-          BASE_BRANCH="main"
-          NEW_BRANCH="Rodrigo-Mendes-k8s-manifest"
-
-          git switch -c $NEW_BRANCH
-
-          mkdir manifest
-          cp ./k8s-manifest.yaml manifest/k8s-manifest.yaml
-          git add manifest/k8s-manifest.yaml
-          git commit -m "Add Kubernetes manifests"
-          git push --set-upstream origin Rodrigo-Mendes-k8s-manifest
-
-          curl -X POST -H "Authorization: token $PAT" \
-               -d "{\"title\": \"Rodrigo Mendes Kubernetes manifests\", \"head\": \"$NEW_BRANCH\", \"base\": \"$BASE_BRANCH\", \"body\": \"Rodrigo Mendes Kubernetes manifests needed for deployment.\"}" \
-               https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls
+          curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
+          -H "Authorization: token $PAT" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{
+          "title": ">Rodrigo Mendes k8s-manifest.yaml",
+          "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
+          "head": "'"${{ github.head_ref }}"'",
+          "base": "main"
+          }'
       
