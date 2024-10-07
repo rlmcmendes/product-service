@@ -53,11 +53,11 @@ jobs:
       - name: Copy k8s-manifest file
         run: |
           ls
-          cp ./k8s-manifest ./k8s-manifest
+          cp k8s-manifest.yaml ./k8s-manifest.yaml
 
       - name: Commit changes
         run: |
-          git add ./k8s-manifest
+          git add ./k8s-manifest.yaml
           git commit -m "Add k8s-manifest file"
 
       - name: Push changes
