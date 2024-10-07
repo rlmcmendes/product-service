@@ -47,10 +47,8 @@ jobs:
         if: always()
         run: docker-compose down
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "rlmcmendes"
-          git config --global user.email "kikomendes4@gmail.com"
+      - name: List branches
+        run: git branch -a
 
       - name: Create Pull Request with Kubernetes manifest
         env:
