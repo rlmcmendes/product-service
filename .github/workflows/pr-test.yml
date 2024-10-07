@@ -55,8 +55,8 @@ jobs:
           -H "Authorization: token $AUTH_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
           -d '{
-            "title": ">Rodrigo Mendes k8s-manifest.yaml",
-            "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
-            "head": "rlmcmendes:main",
-            "base": "main"
+          "title": ">Rodrigo Mendes k8s-manifest.yaml",
+          "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
+          "head": "rlmcmendes:main",
+          "base": "main"
           }'
