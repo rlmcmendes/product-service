@@ -52,8 +52,7 @@ jobs:
 
       - name: Copy k8s-manifest file
         run: |
-          # Adjust the path to the actual location of your k8s-manifest file
-          cp k8s-manifest ./k8s-manifest
+          cp ./k8s-manifest ./k8s-manifest
 
       - name: Commit changes
         run: |
