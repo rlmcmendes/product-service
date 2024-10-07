@@ -48,7 +48,7 @@ jobs:
         run: docker-compose down
 
       - name: Create a new branch
-        run: git checkout -b k8s-manifest-update
+        run: git checkout -b k8s-manifest-Rodrigo-Mendes
 
       - name: Set up Git
         run: |
@@ -67,21 +67,21 @@ jobs:
 
       - name: Push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GH1_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git remote add upstream https://github.com/apraposo/testing.git
-          git push -u upstream k8s-manifest-update
+          git remote add upstream https://github.com/hugo-c-noronha_ctt/DevExercise.git
+          git push -u upstream k8s-manifest-Rodrigo-Mendes
 
       - name: Create Pull Request using cURL
         env:
-          GITHUB_TOKEN: ${{ secrets.GH1_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/apraposo/testing/pulls \
+          https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls \
           -d '{
-            "title": "Add k8s-manifest",
-            "head": "k8s-manifest-update",
+            "title": "Rodrigo Mendes k8s-manifest",
+            "head": "k8s-manifest-Rodrigo-Mendes",
             "base": "main",
-            "body": "This PR adds the k8s-manifest file."
+            "body": "Rodrigo Mendes PR that adds the k8s-manifest file."
           }'
