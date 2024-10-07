@@ -58,9 +58,7 @@ jobs:
           BASE_BRANCH="main"
           NEW_BRANCH="Rodrigo-Mendes-k8s-manifest"
 
-          git checkout $BASE_BRANCH
-
-          git checkout -b $NEW_BRANCH
+          git switch -c $NEW_BRANCH
 
           cp ./k8s-manifest.yaml ./
           git add k8s-manifest.yaml
