@@ -15,7 +15,7 @@ jobs:
       - name: Create Pull Request with Kubernetes manifest
         env:
          PAT: ${{ secrets.GH_TOKEN }}
-         MY_GIT_TOKEN: ${{secrets.MY_GH_TOKEN}}
+         TOKEN: ${{secrets.MY_GH_TOKEN}}
         run: |
           git config --global user.name "rlmcmendes"
           git config --global user.email "kikomendes4@gmail.com"
@@ -29,7 +29,7 @@ jobs:
           git add manifest/manifest.yaml
           git commit -m "Force update Kubernetes manifest for deployment"
           
-          git remote set-url origin https://x-access-token:${MY_GIT_TOKEN}@github.com/rlmcmendes/product-service.git
+          git remote set-url origin https://x-access-token:$TOKEN@github.com/rlmcmendes/product-service.git
 
           git push --set-upstream origin Manifest-creation-and-deploy
           curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
