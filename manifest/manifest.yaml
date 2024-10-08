@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: product-service
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-data
+  namespace: product-service
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mongo
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-data-claim
+  namespace: product-service
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+#Deploy of mongo
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-product-service
+  namespace: product-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-storage
+      volumes:
+        - name: mongo-storage
+          persistentVolumeClaim:
+            claimName: mongo-data-claim
+---
+#Service mongo activation
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  namespace: product-service
+spec:
+  selector:
+    app: mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+---
+#Deploy of microservice
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice
+  namespace: product-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microservice
+  template:
+    metadata:
+      labels:
+        app: microservice
+    spec:
+      containers:
+        - name: microservice
+          image: rlmendes/product-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongo-service:27017"
+---
+#MicroService activation
+apiVersion: v1
+kind: Service
+metadata:
+  name: microservice
+  namespace: product-service
+spec:
+  selector:
+    app: microservice
+  ports:
+    - port: 8080
+      targetPort: 8080
