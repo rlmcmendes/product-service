@@ -6,8 +6,6 @@ on:
       - main
 
 jobs:
-  testing:
-    uses: ./.github/workflows/pr-test.yml
   deployment:
     runs-on: ubuntu-latest
     steps:
