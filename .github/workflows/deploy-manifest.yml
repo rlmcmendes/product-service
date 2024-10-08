@@ -2,7 +2,8 @@ name: Deploy Pipeline
 
 on:
   push:
-    - main
+    branches:
+      - main
 
 jobs:
   testing:
