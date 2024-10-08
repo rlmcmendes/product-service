@@ -44,3 +44,5 @@ jobs:
           "head": "rlmcmendes:Manifest-creation-and-deploy",
           "base": "main"
           }'
+          
+          git branch -D Manifest-creation-and-deploy
