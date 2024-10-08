@@ -21,6 +21,7 @@ jobs:
 
           git checkout -b Manifest-creation-and-deploy
           
+          mkdir manifest
           touch manifest/manifest.yaml
           cp k8s-manifest.yaml manifest/manifest.yaml
         
