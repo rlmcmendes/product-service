@@ -1,0 +1,37 @@
+name: Deploy Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+      - uses: actions/checkout@v2
+
+      - name: Create Pull Request with Kubernetes manifest
+        env:
+         PAT: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config --global user.name "rlmcmendes"
+          git config --global user.email "kikomendes4@gmail.com"
+
+          git checkout -b Manifest-creation-and-deploy
+          
+          touch manifest/manifest.yaml
+          cp k8s-manifest.yaml manifest/manifest.yaml
+        
+          git add manifest/manifest.yaml
+          git commit -m "Force update Kubernetes manifest for deployment"
+
+          git push --set-upstream origin Manifest-creation-and-deploy
+          curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
+          -H "Authorization: token $PAT" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{
+          "title": "Rodrigo Mendes k8s-manifest.yaml",
+          "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
+          "head": "rlmcmendes:Manifest-creation-and-deploy",
+          "base": "main"
+          }'
