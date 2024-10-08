@@ -17,6 +17,7 @@ jobs:
          PAT: ${{ secrets.GH_TOKEN }}
          TOKEN: ${{secrets.MY_GH_TOKEN}}
         run: |
+          echo "Setting remote URL to: https://x-access-token:${PAT}@github.com/rlmcmendes/product-service.git"
           git config --global user.name "rlmcmendes"
           git config --global user.email "kikomendes4@gmail.com"
 
