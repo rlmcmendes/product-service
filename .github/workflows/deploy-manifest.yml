@@ -1,14 +1,15 @@
 name: Deploy Pipeline
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  build-and-test:
+  testing:
+    uses: ./.github/workflows/pr-test.yml
+  deployment:
     runs-on: ubuntu-latest
     steps:
+
       - name: Check out code
         uses: actions/checkout@v2
 
@@ -17,7 +18,6 @@ jobs:
          PAT: ${{ secrets.GH_TOKEN }}
          TOKEN: ${{secrets.MY_GH_TOKEN}}
         run: |
-          echo "Setting remote URL to: https://x-access-token:${PAT}@github.com/rlmcmendes/product-service.git"
           git config --global user.name "rlmcmendes"
           git config --global user.email "kikomendes4@gmail.com"
 
