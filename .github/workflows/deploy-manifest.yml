@@ -10,11 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-      - uses: actions/checkout@v2
-
-      - name: Get library
-      - run : |
-          ls
+        uses: actions/checkout@v2
 
       - name: Create Pull Request with Kubernetes manifest
         env:
