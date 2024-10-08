@@ -46,18 +46,4 @@ jobs:
       - name: Shut down Docker Compose
         if: always()
         run: docker-compose down
-
-      - name: Create Pull Request with Kubernetes manifest
-        env:
-          PAT: ${{ secrets.GH_TOKEN }}
-        run: |
-          curl -X POST "https://api.github.com/repos/hugo-c-noronha_ctt/DevExercise/pulls" \
-          -H "Authorization: token $PAT" \
-          -H "Accept: application/vnd.github.v3+json" \
-          -d '{
-          "title": ">Rodrigo Mendes k8s-manifest.yaml",
-          "body": "Rodrigo Mendes Kubernetes manifest file for deployment.",
-          "head": "rlmcmendes:Manifest-creation-and-deploy",
-          "base": "main"
-          }'
       
